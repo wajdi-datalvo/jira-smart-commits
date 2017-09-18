@@ -1,0 +1,31 @@
+while getopts i:c:t: option
+do
+ case "${option}"
+ in
+ i) ISSUE=${OPTARG};;
+ c) COMMENTS=${OPTARG};;
+ t) TIME=${OPTARG};;
+ esac
+done
+
+if [ -z "$ISSUE" ]
+then
+ echo "issue key is mandatory !"
+ exit 0
+fi
+
+if [ -z "$COMMENTS" ]
+then
+ echo "comments is mandatory !"
+ exit 0
+fi
+
+if [ ! -z "$TIME" ]
+then
+ git add .
+ git commit -m "$ISSUE #comments $COMMENTS #time $TIME"
+else
+ git add .
+ git commit -m "$ISSUE #comments $COMMENTS"
+fi
+exit
